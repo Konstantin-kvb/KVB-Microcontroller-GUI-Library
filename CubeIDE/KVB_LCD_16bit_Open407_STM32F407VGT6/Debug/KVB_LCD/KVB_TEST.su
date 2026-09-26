@@ -1,0 +1,2 @@
+../KVB_LCD/KVB_TEST.c:25:6:lcd_Test480x320Landscape	1056	static
+../KVB_LCD/KVB_TEST.c:726:6:lcd_Test320x240Landscape	736	static
