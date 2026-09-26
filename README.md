@@ -58,7 +58,7 @@ are utilized:
 * **PORTG** pin 0 (**RST**): Transmits the **LCD** panel reset signal.
 * **PORTG** pin 1 (**BL**): Transmits the **LCD** panel backlight signal.
 
-![OpenM128 Development Board with wiring breadboard](images/openm128.png)
+![OpenM128 Development Board with wiring breadboard](images/mega128.png)
 
 ## Unique Functionality and Proprietary Algorithms
 In addition to cross-platform compatibility, the primary objective during the library's 
