@@ -162,5 +162,8 @@ on-screen fonts, automating the entire cycle of graphical resource preparation:
   created (5 base fonts are included in the presentation for demonstration purposes; the 
   full set and the editor are available upon request).
 
+You can watch the video on RUTUBE to evaluate the performance:
+https://rutube.ru/video/80140af8b045d20b939240ea3dab1d8b/
+
 *Note: In the demonstration version of the editor, the option to save in C-format is 
 disabled; the full version of the editor is available upon request.*
