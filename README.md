@@ -164,6 +164,7 @@ on-screen fonts, automating the entire cycle of graphical resource preparation:
 
 You can watch the video on RUTUBE to evaluate the performance:
 https://rutube.ru/video/80140af8b045d20b939240ea3dab1d8b/
+
 You can watch the video on YouTube to evaluate the performance:
 https://youtu.be/6Gmql-fCoFs
 
