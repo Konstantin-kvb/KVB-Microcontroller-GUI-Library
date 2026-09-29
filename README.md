@@ -1,5 +1,5 @@
 # KVB_LCD Graphics Library
-«📖 Читать описание на русском языке».
+«📖 Читать описание на русском языке README_RU.md».
 ## License
 This graphics library is distributed under the **Creative Commons Attribution-NonCommercial 4.0 
 International (CC BY-NC 4.0)** license.
