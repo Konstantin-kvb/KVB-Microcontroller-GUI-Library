@@ -1,7 +1,7 @@
 # KVB_LCD Graphics Library
 «📖 Читать описание на русском языке README_RU.md».
 ## 🌐 Connecting the Library (.a) to a Project in Atmel Studio 7.0
-The LCD graphics library (** .a **) files are located in the **KVB_LCD** project folder, along with the **GUI** files and demonstration code (** .c ** and ** .h **).
+The LCD graphics library (**.a**) files are located in the **KVB_LCD** project folder, along with the **GUI** files and demonstration code (**.c** and **.h**).
 
 ## 📂 File Structure Overview
 * **KVB_LCD.h** – Graphical User Interface (GUI) header.
