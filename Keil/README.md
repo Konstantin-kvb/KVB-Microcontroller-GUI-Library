@@ -1,7 +1,7 @@
 # KVB_LCD Graphics Library
 «📖 Читать описание на русском языке README_RU.md».
 ## 🌐 Connecting the Library (.lib) to a Project in Keil MDK 5
-The LCD graphics library (** .lib **) files are located in the **KVB_LCD** project folder, along with the **GUI** files and demonstration code (** .c ** and ** .h **).
+The LCD graphics library (**.lib**) files are located in the **KVB_LCD** project folder, along with the **GUI** files and demonstration code (**.c** and **.h**).
 
 ## 📂 File Structure Overview
 * **KVB_LCD.h** – Graphical User Interface (GUI) header.
