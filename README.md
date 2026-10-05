@@ -23,10 +23,6 @@ Instead of a thousand words, see for yourself how a microcontroller with zero **
 
     <https://youtu.be/XuP7KXyDUP8>
 
--   **The complete project source code and documentation are available for download here:**
-
-    https://github.com/Konstantin-kvb/KVB-Microcontroller-GUI-Library/
-
 **Demo Video Details:** The video demonstrates the rendering of **12** complex "three-layer" objects. Each object consists of **3** independent circular/rounded gradient surfaces. This totals **36 independent gradient surfaces** overlaid with **12** gradient characters featuring true shadow effects. To enhance the lighting and depth depth-of-field perception, the center surface is offset relative to the outer boundary. **All of this is rendered directly into the display's GRAM on the fly, without any framebuffer**.
 
 ![](images/keypad_inactive.png)
