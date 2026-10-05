@@ -1,5 +1,6 @@
 ## KVB_LCD: A Frameless GUI Library for STM32F407 and ATmega128
-
+«📖 [Читать описание на русском языке](README_RU.md)».
+##
 ### Architecture Defying Limitations
 
 When it comes to developing graphical user interfaces (GUIs) for microcontrollers, embedded engineers usually face a strict compromise: either deploy "heavyweight" libraries like **LVGL**—which demand megabytes of **RAM** for **framebuffers** and a powerful **Cortex-M** core—or settle for primitive graphics suited for basic **8-bit** chips.
