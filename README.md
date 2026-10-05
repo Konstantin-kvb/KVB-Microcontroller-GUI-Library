@@ -1,172 +1,163 @@
-# KVB_LCD Graphics Library
-«📖 Читать описание на русском языке README_RU.md».
-## License
-This graphics library is distributed under the **Creative Commons Attribution-NonCommercial 4.0 
-International (CC BY-NC 4.0)** license.
-You are free to use, modify, and distribute this code for personal, educational, and 
-non-commercial purposes, provided that proper author attribution is given. Use of this 
-library in any commercial projects is strictly prohibited. For inquiries regarding the 
-acquisition of a commercial license, please contact: 
-**[email kboruzdov@mail.ru tel +7 965-363-45-29]**.
+## KVB_LCD: A Frameless GUI Library for STM32F407 and ATmega128
 
-## Intellectual Property Protection and Proprietary Algorithms
-The mathematical solutions and algorithms implemented within the library's graphics core 
-are the exclusive intellectual property of the author. Specifically, the proprietary 
-algorithm for on-the-fly rendering and gradient filling of circular/three-surface objects, 
-executed purely via **integer math** (without utilizing a frame buffer), represents closed, 
-protected know-how.
+### Architecture Defying Limitations
 
-To protect copyright and prevent unauthorized replication of these unique, low-level 
-engineering solutions, the graphics core is distributed **strictly as precompiled, 
-closed-source binary modules** (static library files in `.a` and `.lib` formats).
+When it comes to developing graphical user interfaces (GUIs) for microcontrollers, embedded engineers usually face a strict compromise: either deploy "heavyweight" libraries like **LVGL**—which demand megabytes of **RAM** for **framebuffers** and a powerful **Cortex-M** core—or settle for primitive graphics suited for basic **8-bit** chips.
 
-Under **no circumstances** shall the source code of the mathematical core (including 
-high-speed line rendering, GRAM gradient calculation, and three-surface object algorithms) 
-be disclosed or transferred, regardless of the commercial license type acquired. 
-However, the developer receives full access to the source code of the GUI interface layer 
-(`KVB_LCD.h`), display drivers, and demonstration projects, ensuring complete flexibility 
-for integration and custom user interface development.
+The **KVB_LCD** project proves that with a deep understanding of geometry and display RAM architecture, you can achieve advanced **visual effects in real time using integer-only math** and **exactly 0 bytes of framebuffer RAM.** Graphical objects function absolutely identically on both the **32-** bit **STM32F407** and the popular **8**-bit **ATmega128**.
+##
+### Ultimate Proof: Rendering Speed
 
-## Cross-Platform Compatibility
-The library is written completely from scratch in pure C using **GCC** and **AC6**, without 
-utilizing any third-party code, and relies exclusively on integer math. Currently, the 
-library supports two microcontrollers—**ATmega128** and **STM32F407**—at the Graphical User 
-Interface (GUI) layer (**KVB_LCD.h**). Graphical objects developed using the GUI library 
-will function identically on both the 8-bit **ATmega128** microcontroller and the 32-bit 
-**STM32F407**. 
+Instead of a thousand words, see for yourself how a microcontroller with zero **framebuffer** RAM redraws highly complex scenes in real time:
 
-For software development, the library supports three development environments (IDEs): 
-**Atmel Studio 7.0**, **STM32CubeIDE v2**, and **Keil MDK v5.43**. To evaluate the test 
-presentation code on the STM32, three development boards featuring an FSMC interface 
-are supported:
-* **Open407V-D stm32f4-discovery** based on the **STM32F407VGT6** microcontroller.
-* **ST STM32F4XX Black v3.0 1606** based on the **STM32F407ZGT6** microcontroller.
-* **ST STM32F4XX Black v2.0 1509** based on the **STM32F407VET6** microcontroller.
+-   **Watch the demo on RUTUBE:**
 
-![Open407V-D / STM32F4-Discovery Board](images/open407v_d.png)
-![ST STM32F4XX Black v3.0 Board](images/black_v3.png)
-![ST STM32F4XX Black v2.0 Board](images/black_v2.png)
+    <https://rutube.ru/video/80140af8b045d20b939240ea3dab1d8b/>
 
-To run the test presentation code on the **ATmega128**, the following hardware I/O ports 
-are utilized:
-* **PORTC** port (D0-D7): Low byte of the **LCD** panel data bus.
-* **PORTA** port (D8-D15): High byte of the **LCD** panel data bus.
-* **PORTD** pin 4 (**CS**): Transmits the **LCD** panel access signal.
-* **PORTD** pin 5 (**RD**): Transmits the **LCD** panel read signal.
-* **PORTD** pin 6 (**WR**): Transmits the **LCD** panel write signal.
-* **PORTD** pin 7 (**RS**): Transmits the **LCD** panel command/data signal.
-* **PORTG** pin 0 (**RST**): Transmits the **LCD** panel reset signal.
-* **PORTG** pin 1 (**BL**): Transmits the **LCD** panel backlight signal.
+-   **Watch the demo on VK Video:**
 
-![OpenM128 Development Board with wiring breadboard](images/mega128.png)
+    <https://vkvideo.ru/video-241941150_456239018>
 
-## Unique Functionality and Proprietary Algorithms
-In addition to cross-platform compatibility, the primary objective during the library's 
-creation was achieving the fastest possible rendering speed for graphical objects. Unlike 
-conventional libraries that rely on standard pixel-by-pixel output, this project implements 
-optimized proprietary algorithms designed specifically around the Graphics RAM (**GRAM**) 
-architecture of LCD displays:
-* **High-Speed Line Rendering.** Utilizes a proprietary algorithm that calculates continuous 
-  straight segments within inclined/diagonal lines. This minimizes the number of **GRAM** 
-  address switching commands sent to the **LCD** panel and enables rapid block filling, 
-  which exponentially increases the rendering speed and **FPS**.
-* **Gradient Color Rendering.** Features a proprietary algorithm that computes and executes 
-  gradient shading in both vertical and horizontal directions with linear or central 
-  orientation, leveraging the hardware acceleration capabilities of the **GRAM** matrix 
-  of the **LCD** panel.
-* **Multifunctional Three-Surface Object.** Uses a proprietary algorithm that calculates a 
-  gradient-filled circle on the fly using purely integer math without utilizing framebuffers. 
-  This object dynamically calculates and renders three rounded, circular, or rectangular 
-  surfaces simultaneously with gradient fills in different directions on the fly. All three 
-  surfaces are independent and can be redrawn separately. This allows the GUI to emphasize 
-  an active object by redrawing only one outer surface with a different color, saving 
-  processing time by not rendering the remaining surfaces.
+-   **Watch the demo on YouTube:**
 
-![Geometric pattern with KVB logo](images/pattern_logo.png)
-![Color key matrix GUI active](images/keypad_active.png)
-![Color key matrix GUI inactive](images/keypad_inactive.png)
+    <https://youtu.be/XuP7KXyDUP8>
 
-## Graphical Primitives
-![Rectangles and circles with gradients](images/primitives_gradient.png)
-![Rounded rectangles and triangles](images/primitives_shapes.png)
-![Ovals and smooth shapes](images/primitives_ovals.png)
+-   **The complete project source code and documentation are available for download here:**
 
-* **Three Display Modes and Adjustable Borders.** Graphical primitives feature two independent 
-  surfaces and three display modes: 1 = the entire primitive, 2 = adjustable border only, 
-  3 = inner surface only. This allows users to select an object on the **LCD** panel by simply 
-  changing its border color, avoiding the time-consuming process of redrawing its internal 
-  area. Triangle primitives (both equilateral and isosceles) support four vertex 
-  orientations: 1 = left, 2 = right, 3 = up, 4 = down.
+    https://github.com/Konstantin-kvb/KVB-Microcontroller-GUI-Library/
 
-## Advanced Text Rendering Subsystem
-![Textured text with shadows](images/text_shadows.png)
-![High-zoom pixel font detail](images/text_zoom.png)
-![KVB-16bit-LCD ATmega128 Atmel Studio 7](images/text_atmega.png)
+**Demo Video Details:** The video demonstrates the rendering of **12** complex "three-layer" objects. Each object consists of **3** independent circular/rounded gradient surfaces. This totals **36 independent gradient surfaces** overlaid with **12** gradient characters featuring true shadow effects. To enhance the lighting and depth depth-of-field perception, the center surface is offset relative to the outer boundary. **All of this is rendered directly into the display's GRAM on the fly, without any framebuffer**.
 
-The text engine features powerful and fast text handling capabilities, automatically aligning 
-text strings and rendering complex visual effects on the fly without a framebuffer:
-* **Baseline Alignment.** All fonts align to a single horizontal guide line (the lower shelf 
-  of characters). This enables developers to compose a single line of text out of words with 
-  different sizes and colors, guaranteeing flawless text alignment.
-* **Automatic Word Wrapping.** Long, continuous text streams can consist of multiple string, 
-  integer, and float variables of various font sizes and colors. The text automatically wraps 
-  by word to the next line if it exceeds the specified width of the text block.
-* **Tabulation Support.**
-* **Font Kerning Settings** (character spacing) with precise adjustment for space and 
-  tab lengths.
-* **Line Spacing.** Line spacing can be adjusted in both positive and negative directions. 
-  Negative spacing is highly effective when a long text block is output entirely in uppercase 
-  characters, while increasing it in the positive direction enhances text readability.
-* **Font Scale Factor.**
-* **Text Alignment.** Supports text alignment to the left edge, right edge, or center.
-* **Shadow Effect.** Text character shadows feature four configuration settings: 1 = bottom-right 
-  shadow, 2 = bottom-left shadow, 3 = top-right shadow, 4 = top-left shadow. This creates a 
-  raised or embossed text effect, significantly improving readability.
-* **Circular Character Outline.** Draws a crisp, sharp outline around each character, ensuring 
-  legibility against any background. The engine can also display only the outline without 
-  rendering the inner character.
-* **Gradient Text.** Delivers smooth horizontal or vertical color blending via linear or central 
-  text line fills, which can be combined with shadows or circular outlines.
+![](images/keypad_inactive.png)
+##
+### License
 
-## Distribution Format and Source Code Availability
-The graphics core of the library is supplied as precompiled, closed-source static libraries, 
-ensuring the protection of the proprietary algorithms:
-* **For STM32F407:** Static library files in **.a** format (for STM32CubeIDE) and **.lib** 
-  format (for Keil MDK).
-* **For ATmega128:** Static library files in **.a** format (for Atmel Studio 7.0).
+This graphical library is distributed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
 
-What remains fully open to the developer:
-* The main GUI interface header file—**KVB_LCD.h**. It features exhaustive comments in Russian, 
-  providing detailed descriptions of all functions, parameters, font effects, and graphical 
-  objects.
-* The entire demo code pack includes comprehensive Russian comments to ensure a quick start.
+You are free to use, modify, and distribute this code for personal, educational, and non-commercial purposes, provided that proper authorship attribution is given. **Commercial use of this library is strictly prohibited**. To acquire a commercial license, please contact the author directly at **kboruzdov@mail.ru** or via phone at **+7 965-363-45-29**.
+##
+### Intellectual Property Protection & Proprietary Algorithms
 
-## Graphical Font Editor (Windows IDE)
-![Interface of FontEditorKVB v:1.00](images/font_editor.png)
+The mathematical approaches and rendering algorithms implemented in the library's core are the unique intellectual property of the author. Specifically, the proprietary algorithm for on-the-fly construction and fill-rendering of a gradient circle within a three-layer object using exclusively integer math (without a framebuffer) is a closed-source know-how that required immense engineering effort. This is a commercially valuable technology, and the author does not intend to provide these unique mathematical solutions to large corporations free of charge.
 
-A dedicated, fully-featured Windows application was developed to create and customize 
-on-screen fonts, automating the entire cycle of graphical resource preparation:
-* **DOS Font Import (.fnt).** A vast number of bitmap fonts were created in the .fnt format 
-  during the DOS era. The editor allows quick loading of these classic DOS bitmap fonts for 
-  subsequent adaptation to microcontroller displays.
-* **Pixel-by-Pixel Editing.** Provides a user-friendly GUI for manual drawing, modifying 
-  individual characters on a pixel grid, and adjusting font metrics.
-* **Interactive Rendering.** Displays a specified text string on the fly in real-time. You 
-  can instantly see how modifying a single pixel in a character affects the layout of the 
-  entire text line.
-* **Export to C Format.** Generates ready-to-use **.c** source files featuring an ultra-compact 
-  sequential data packing method (a **9x16** character occupies just 18 bytes), fully compatible 
-  with both **PROGMEM** in the **ATmega128** Flash memory and standard constant arrays in 
-  the **STM32F407**.
-* **Proprietary Font Pack.** Using this editor, 23 unique Russian-English fonts have been 
-  created (5 base fonts are included in the presentation for demonstration purposes; the 
-  full set and the editor are available upon request).
+To protect copyright and prevent unauthorized reverse engineering of these low-level solutions, the **core graphics engine is delivered strictly as pre-compiled static binary modules** (.a and .lib library files).
 
-You can watch the video on RUTUBE to evaluate the performance:
-https://rutube.ru/video/80140af8b045d20b939240ea3dab1d8b/
+The source code of the mathematical core (including high-speed line rendering, GRAM gradient calculation, and three-layer object algorithms) **will not be disclosed under any circumstances**, including the purchase of a commercial license. However, developers get full access to the source code of the high-level GUI wrapper (**KVB_LCD.h**), which is comprehensively commented in Russian and contains detailed descriptions of all functions, parameters, font effects, and graphical objects. All demonstration code includes extensive comments for a quick and seamless start.
+##
+### Cross-Platform Compatibility
 
-You can watch the video on YouTube to evaluate the performance:
-https://youtu.be/6Gmql-fCoFs
+The library is written from scratch in pure **C** (compatible with **GCC** and **AC6**), utilizing integer-only math without any third-party code dependencies.
 
-*Note: In the demonstration version of the editor, the option to save in C-format is 
-disabled; the full version of the editor is available upon request.*
+Currently, the library supports **ATmega128** and **STM32F407** microcontrollers at the high-level **GUI** wrapper layer (**KVB_LCD.h**). Graphical objects built using this library run identically on both **8**-bit (**ATmega128**) and **32**-bit (**STM32F407**) MCUs.
+
+**Supported IDEs:**
+
+-   Atmel Studio 7.0
+-   STM32CubeIDE
+-   Keil MDK v5.43
+
+**Supported STM32 Development Boards (with FSMC interface) for evaluation:**
+
+-   **Open407V-D / stm32f4-discovery** (MCU: STM32F407VGT6)
+-   **ST STM32F4XX Black v3.0 1606** (MCU: STM32F407ZGT6)
+-   **ST STM32F4XX Black v2.0 1509** (MCU: STM32F407VET6)
+
+![](images/open407v_d.png)
+
+![](images/black_v3.png)
+
+![](images/black_v2.png)
+
+**Pinout Configuration for ATmega128 Evaluation (GPIO Mode):**
+
+-   **PORTC** (**D0-D7**): LCD Low Data Byte Bus
+-   **PORTA** (**D8-D15**): LCD High Data Byte Bus
+-   **PORTD** bit **4** (**CS**): LCD Chip Select Signal
+-   **PORTD** bit **5** (**RD**): LCD Read Signal
+-   **PORTD** bit **6** (**WR**): LCD Write Signal
+-   **PORTD** bit **7** (**RS**): LCD Register Select (Command/Data) Signal
+-   **PORTG** bit **0** (**RST**): LCD Reset Signal
+-   **PORTG** bit **1** (**BL**): LCD Backlight Control Signal
+
+![](images/mega128.png)
+##
+### Supported LCD Panels (Built-in Drivers):
+
+-   **ILI9325** (320 x 240 resolution)
+-   **ILI9341** (320 x 240 resolution)
+-   **ILI9481** (480 x 320 resolution)
+-   **ILI9484** (480 x 320 resolution)
+-   **OTM8009A** (800 x 480 resolution)
+
+*Note: Board and panel pinout mappings are provided as .xlsx spreadsheets in the FSMC LCD directory. While your specific LCD pinout may vary, the board-side mappings remain standard.*
+##
+### Unique Features & Proprietary Algorithms
+
+![](images/pattern_logo.png)
+
+![](images/keypad_active.png)
+
+Apart from cross-platform consistency, the primary goal of this library is **maximum rendering speed**. Unlike traditional graphics libraries that rely on standard pixel-by-pixel output, KVB_LCD features optimized custom algorithms designed around the hardware architecture of display Graphical RAM (GRAM):
+
+-   **High-Speed Line Rendering:** A proprietary algorithm calculates contiguous straight segments within inclined/diagonal lines. This minimizes the number of GRAM address switching commands sent to the LCD controller and utilizes fast block fills, exponentially increasing rendering speed.
+-   **Gradient Color Fills:** A proprietary algorithm calculates and executes vertical and horizontal gradient fills with linear or centered orientation. It leverages the display hardware matrix to accelerate color rendering inside the GRAM.
+-   **Multifunctional Three-Layer Objects:** A proprietary algorithm handles integer-based circle generation with on-the-fly gradient fills without a framebuffer. This object renders three nested rounded, circular, or rectangular surfaces simultaneously, each with gradients in different directions. All three surfaces can be redrawn independently. For example, you can visually highlight an object selection by redrawing only the outer border color, skipping the inner surfaces completely to save processing time.
+##
+### Advanced Graphical Primitives
+
+![](images/primitives_gradient.png)
+
+![](images/primitives_shapes.png)
+
+![](images/text_atmega.png)
+
+Even basic geometric figures in KVB_LCD offer more advanced features than standard alternatives. They include:
+
+-   Adjustable border width.
+-   A configurable center surface.
+-   **Three rendering modes:** Border-only, Fill-only, or Full Object. This allows object selection/interaction handling by changing just the border color on the fly, preventing costly redraws of the inner area.
+-   **Four-way vertex orientation** for triangle primitives (both equilateral and isosceles): Left, Right, Up, or Down.
+##
+### Advanced Text Rendering Subsystem
+
+![](images/text_shadows.png)
+
+![](images/text_zoom.png)
+
+![](images/text_atmega.png)
+
+The engine features a powerful, high-performance text rendering subsystem that automatically handles line alignment and applies complex visual effects on the fly without a framebuffer:
+
+-   **Baseline Anchoring:** All fonts align to a single horizontal guide line (the character baseline). This allows words of different sizes and colors to be combined into a single text line while maintaining perfect vertical alignment.
+-   **Automatic Word Wrapping:** Long continuous text blocks—which can consist of multiple string, integer, and float variables of varying font sizes and colors—automatically wrap to the next line when exceeding text block boundaries.
+-   **Tabulation Support:** Native handling of \\t tab characters.
+-   **Configurable Font Kerning:** Custom character spacing with automatic length correction for spaces and tabs.
+-   **Adjustable Line Spacing:** Supports both positive and negative spacing offsets. Negative values optimize layouts for ALL-CAPS text blocks, while positive values improve general text readability.
+-   **Font Scaling Factor:** Dynamic integer scaling of font assets.
+-   **Text Alignment:** Align text to Left, Right, or Center.
+-   **Shadow Effects:** Four configurable shadow orientations (Bottom-Right, Bottom-Left, Top-Right, Top-Left). This creates professional embossed or debossed font effects, significantly increasing text readability.
+-   **Character Outlining:** Renders a crisp circular outline around each glyph to ensure text remains legible on any background pattern. Can be set to render the outline only, omitting the character fill.
+-   **Gradient Text:** Renders smooth horizontal or vertical color transitions using linear or centered text line fills, fully compatible with shadow and outline effects.
+##
+### Font Editor (Windows Desktop Tool)
+
+![](images/font_editor.png)
+
+To streamline the creation and customization of display fonts, a dedicated Windows desktop application was developed to automate the asset preparation workflow:
+
+-   **DOS Font Import (.fnt):** Allows rapid importing of classic bitmapped .fnt files from the DOS era for subsequent optimization and adaptation to microcontroller screens.
+-   **Pixel-Grid Editing:** Provides a convenient grid-based GUI for manual pixel drawing, glyph correction, and baseline adjustment.
+-   **Interactive Real-Time Rendering:** Renders a sample text string dynamically. You can see exactly how altering a single pixel in a glyph changes the look of the entire text string in real time.
+-   **Export to C Source Code:** Generates optimized .c source files with ultra-compact sequential data packing. A standard 9x16 glyph takes up **just 18 bytes**, ensuring full compatibility with AVR's PROGMEM Flash storage or standard const arrays in STM32.
+-   **Proprietary Font Pack:** The author utilized this editor to craft **23 unique dual-language (Russian/English) fonts**. (5 base fonts are bundled with the demo presentation; the complete font collection and full editor are available upon request).
+
+*Note: The evaluation version of the Font Editor has the "Export to C-format" feature disabled. The fully unlocked version is available upon request.*
+##
+**Best regards,**  
+**Konstantin Boruzdov**
+
+**Contact Information:**
+
+-   📧 **Email:** kboruzdov@mail.ru
+-   📞 **Tel:** +7 (965) 363-45-29
+##
