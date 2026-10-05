@@ -109,7 +109,7 @@ Apart from cross-platform consistency, the primary goal of this library is **max
 
 ![](images/primitives_shapes.png)
 
-![](images/text_atmega.png)
+![](images/primitives_ovals.png)
 
 Even basic geometric figures in KVB_LCD offer more advanced features than standard alternatives. They include:
 
