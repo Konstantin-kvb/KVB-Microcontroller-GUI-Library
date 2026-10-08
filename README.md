@@ -83,7 +83,7 @@ Currently, the library supports **ATmega128** and **STM32F407** microcontrollers
 -   **ILI9325** (320 x 240 resolution)
 -   **ILI9341** (320 x 240 resolution)
 -   **ILI9481** (480 x 320 resolution)
--   **ILI9484** (480 x 320 resolution)
+-   **ILI9486** (480 x 320 resolution)
 -   **OTM8009A** (800 x 480 resolution)
 
 *Note: Board and panel pinout mappings are provided as .xlsx spreadsheets in the FSMC LCD directory. While your specific LCD pinout may vary, the board-side mappings remain standard.*
