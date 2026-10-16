@@ -23,9 +23,13 @@ Instead of a thousand words, see for yourself how a microcontroller with zero **
 
     <https://youtu.be/6Gmql-fCoFs>
 
+-   **The complete project source code and documentation are available for download here:**
+
+    <https://github.com/Konstantin-kvb/KVB-Microcontroller-GUI-Library/>
+
 **Demo Video Details:** The video demonstrates the rendering of **12** complex "three-layer" objects. Each object consists of **3** independent circular/rounded gradient surfaces. This totals **36 independent gradient surfaces** overlaid with **12** gradient characters featuring true shadow effects. To enhance the lighting and depth depth-of-field perception, the center surface is offset relative to the outer boundary. **All of this is rendered directly into the display's GRAM on the fly, without any framebuffer**.
 
-![](images/keypad_inactive.png)
+![](doc/images/keypad_inactive.png)
 ##
 ### License
 
@@ -47,11 +51,19 @@ The library is written from scratch in pure **C** (compatible with **GCC** and *
 
 Currently, the library supports **ATmega128** and **STM32F407** microcontrollers at the high-level **GUI** wrapper layer (**KVB_LCD.h**). Graphical objects built using this library run identically on both **8**-bit (**ATmega128**) and **32**-bit (**STM32F407**) MCUs.
 
-**Supported IDEs:**
+**Build system: CMake.** The library is a CMake package with the `KVB::LCD` target. Supported toolchains:
 
--   Atmel Studio 7.0
--   STM32CubeIDE
--   Keil MDK v5.43
+-   **arm-none-eabi-gcc** for STM32F407
+-   **avr-gcc** for ATmega128
+-   **armclang** (Arm Compiler 6) for STM32F407, library target only
+
+How to add the library to your project (add_subdirectory, FetchContent, CPM.cmake, find_package, STM32CubeMX) is described in [doc/CMAKE.md](doc/CMAKE.md). Quick build of the demo firmware and tests:
+
+```bash
+cmake --preset black-f407vet6
+cmake --build --preset black-f407vet6
+ctest --preset black-f407vet6
+```
 
 **Supported STM32 Development Boards (with FSMC interface) for evaluation:**
 
@@ -59,11 +71,11 @@ Currently, the library supports **ATmega128** and **STM32F407** microcontrollers
 -   **ST STM32F4XX Black v3.0 1606** (MCU: STM32F407ZGT6)
 -   **ST STM32F4XX Black v2.0 1509** (MCU: STM32F407VET6)
 
-![](images/open407v_d.png)
+![](doc/images/open407v_d.png)
 
-![](images/black_v3.png)
+![](doc/images/black_v3.png)
 
-![](images/black_v2.png)
+![](doc/images/black_v2.png)
 
 **Pinout Configuration for ATmega128 Evaluation (GPIO Mode):**
 
@@ -76,7 +88,7 @@ Currently, the library supports **ATmega128** and **STM32F407** microcontrollers
 -   **PORTG** bit **0** (**RST**): LCD Reset Signal
 -   **PORTG** bit **1** (**BL**): LCD Backlight Control Signal
 
-![](images/mega128.png)
+![](doc/images/mega128.png)
 ##
 ### Supported LCD Panels (Built-in Drivers):
 
@@ -86,13 +98,13 @@ Currently, the library supports **ATmega128** and **STM32F407** microcontrollers
 -   **ILI9486** (480 x 320 resolution)
 -   **OTM8009A** (800 x 480 resolution)
 
-*Note: Board and panel pinout mappings are provided as .xlsx spreadsheets in the FSMC LCD directory. While your specific LCD pinout may vary, the board-side mappings remain standard.*
+*Note: Board and panel pinout tables are in [doc/pinout](doc/pinout/PANELS.md). While your specific LCD pinout may vary, the board-side mappings remain standard.*
 ##
 ### Unique Features & Proprietary Algorithms
 
-![](images/pattern_logo.png)
+![](doc/images/pattern_logo.png)
 
-![](images/keypad_active.png)
+![](doc/images/keypad_active.png)
 
 Apart from cross-platform consistency, the primary goal of this library is **maximum rendering speed**. Unlike traditional graphics libraries that rely on standard pixel-by-pixel output, KVB_LCD features optimized custom algorithms designed around the hardware architecture of display Graphical RAM (GRAM):
 
@@ -102,11 +114,11 @@ Apart from cross-platform consistency, the primary goal of this library is **max
 ##
 ### Advanced Graphical Primitives
 
-![](images/primitives_gradient.png)
+![](doc/images/primitives_gradient.png)
 
-![](images/primitives_shapes.png)
+![](doc/images/primitives_shapes.png)
 
-![](images/primitives_ovals.png)
+![](doc/images/primitives_ovals.png)
 
 Even basic geometric figures in KVB_LCD offer more advanced features than standard alternatives. They include:
 
@@ -117,11 +129,11 @@ Even basic geometric figures in KVB_LCD offer more advanced features than standa
 ##
 ### Advanced Text Rendering Subsystem
 
-![](images/text_shadows.png)
+![](doc/images/text_shadows.png)
 
-![](images/text_zoom.png)
+![](doc/images/text_zoom.png)
 
-![](images/text_atmega.png)
+![](doc/images/text_atmega.png)
 
 The engine features a powerful, high-performance text rendering subsystem that automatically handles line alignment and applies complex visual effects on the fly without a framebuffer:
 
@@ -138,9 +150,9 @@ The engine features a powerful, high-performance text rendering subsystem that a
 ##
 ### Font Editor (Windows Desktop Tool)
 
-![](images/font_editor.png)
+![](doc/images/font_editor.png)
 
-To streamline the creation and customization of display fonts, a dedicated Windows desktop application was developed to automate the asset preparation workflow:
+To streamline the creation and customization of display fonts, a dedicated Windows desktop application was developed to automate the asset preparation workflow. It is located in [tools/FontEditor](tools/FontEditor):
 
 -   **DOS Font Import (.fnt):** Allows rapid importing of classic bitmapped .fnt files from the DOS era for subsequent optimization and adaptation to microcontroller screens.
 -   **Pixel-Grid Editing:** Provides a convenient grid-based GUI for manual pixel drawing, glyph correction, and baseline adjustment.

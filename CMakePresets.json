@@ -1,0 +1,64 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "MinSizeRel" }
+    },
+    {
+      "name": "stm32-gcc",
+      "hidden": true,
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/arm-none-eabi-gcc.cmake"
+    },
+    {
+      "name": "black-f407vet6",
+      "displayName": "Black STM32F407VET6 (arm-none-eabi-gcc)",
+      "inherits": "stm32-gcc",
+      "cacheVariables": { "KVB_LCD_BOARD": "BLACK_F407VET6" }
+    },
+    {
+      "name": "black-f407zgt6",
+      "displayName": "Black STM32F407ZGT6 (arm-none-eabi-gcc)",
+      "inherits": "stm32-gcc",
+      "cacheVariables": { "KVB_LCD_BOARD": "BLACK_F407ZGT6" }
+    },
+    {
+      "name": "open407-f407vgt6",
+      "displayName": "Open407V-D STM32F407VGT6 (arm-none-eabi-gcc)",
+      "inherits": "stm32-gcc",
+      "cacheVariables": { "KVB_LCD_BOARD": "OPEN407_F407VGT6" }
+    },
+    {
+      "name": "atmega128",
+      "displayName": "ATmega128 (avr-gcc)",
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/avr-gcc.cmake",
+      "cacheVariables": {
+        "KVB_LCD_BOARD": "ATMEGA128",
+        "KVB_LCD_CONTROLLER": "ILI9481"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "black-f407vet6", "configurePreset": "black-f407vet6" },
+    { "name": "black-f407zgt6", "configurePreset": "black-f407zgt6" },
+    { "name": "open407-f407vgt6", "configurePreset": "open407-f407vgt6" },
+    { "name": "atmega128", "configurePreset": "atmega128" }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "output": { "outputOnFailure": true }
+    },
+    { "name": "black-f407vet6", "inherits": "base", "configurePreset": "black-f407vet6" },
+    { "name": "black-f407zgt6", "inherits": "base", "configurePreset": "black-f407zgt6" },
+    { "name": "open407-f407vgt6", "inherits": "base", "configurePreset": "open407-f407vgt6" },
+    { "name": "atmega128", "inherits": "base", "configurePreset": "atmega128" }
+  ]
+}

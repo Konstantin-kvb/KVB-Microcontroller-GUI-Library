@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+
+# Set KVB_LCD_BOARD and KVB_LCD_CONTROLLER before find_package(KVB_LCD),
+# or pass them with -D. See doc/CMAKE.md.
+
+set(KVB_LCD_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set(KVB_LCD_LIB_DIR "@PACKAGE_KVB_LCD_INSTALL_LIBDIR@")
+set(KVB_LCD_BOARDS_DIR "${CMAKE_CURRENT_LIST_DIR}/boards")
+
+include("${CMAKE_CURRENT_LIST_DIR}/KVB_LCDTargets.cmake")
+
+check_required_components(KVB_LCD)
